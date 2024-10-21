@@ -15,6 +15,9 @@ describe('AmountDialogComponent', () => {
   let dialogRefMock: jasmine.SpyObj<MatDialogRef<AmountDialogComponent>>;
   let logicAppServiceMock: jasmine.SpyObj<LogicAppService>;
 
+  const mockFund = { id: 1, minAmount: 100 };
+  const mockCustomer = { id: 1 };
+
   const matDialogDataMock = {
     fund: { minAmount: 1000, id: 1 },
   };
