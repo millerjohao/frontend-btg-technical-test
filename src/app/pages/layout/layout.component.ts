@@ -23,8 +23,7 @@ import { Subscription } from 'rxjs';
 export class LayoutComponent implements OnInit {
   logicAppService = inject(LogicAppService);
   currentCustomer?: ICustomer | any;
-  router = inject(Router);
-  customerDataSubscription: Subscription | undefined;
+  router = inject(Router);  
   currentAmount: number;
 
   constructor() {
@@ -36,9 +35,5 @@ export class LayoutComponent implements OnInit {
   logout() {
     this.logicAppService.logout();
     this.router.navigate(['/login']);
-  }
-
-  ngOnDestroy(): void {
-    this.customerDataSubscription?.unsubscribe();
   }
 }

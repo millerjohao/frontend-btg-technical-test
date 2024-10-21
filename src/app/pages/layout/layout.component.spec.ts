@@ -1,55 +1,96 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+  UrlTree,
+} from '@angular/router';
 import { LayoutComponent } from './layout.component';
-import { DecimalPipe } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LogicAppService } from '../../services/logic-app.service';
+import { ICustomer } from '../core/interfaces/customer-model.interface';
+import { of, Subject, Subscription } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { AmountDialogComponent } from '../components/amount-dialog/amount-dialog.component';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
   let fixture: ComponentFixture<LayoutComponent>;
-  let dialogRefMock: jasmine.SpyObj<MatDialogRef<AmountDialogComponent>>;
-  let logicAppServiceMock: jasmine.SpyObj<LogicAppService>;
-  const matDialogDataMock = {
-    fund: { minAmount: 1000, id: 1 },
-  };
+  let logicAppServiceSpy: jasmine.SpyObj<LogicAppService>;
+  let routerSpy: jasmine.SpyObj<Router>;
+
+  const mockCustomer: ICustomer = {
+    id: 1,
+    name: 'John Doe',
+    balance: 1000,
+  } as any;
 
   beforeEach(async () => {
+    const logicAppSpy = jasmine.createSpyObj('LogicAppService', [
+      'getCustomerFromLocalStorage',
+      'logout',
+    ]);
+    const routerEventsSubject = new Subject<NavigationEnd>();
+    const routerSpyObj = {
+      ...jasmine.createSpyObj('Router', [
+        'navigate',
+        'createUrlTree',
+        'serializeUrl',
+      ]),
+      events: routerEventsSubject.asObservable(),
+      url: '/some-url',
+    };
+
+    routerSpyObj.createUrlTree.and.returnValue({} as UrlTree);
+    routerSpyObj.serializeUrl.and.returnValue('mocked-serialized-url');
+
     await TestBed.configureTestingModule({
       imports: [
         LayoutComponent,
+        CommonModule,
+        RouterModule,
         HttpClientTestingModule,
         AmountDialogComponent,
         BrowserAnimationsModule,
         NoopAnimationsModule,
       ],
       providers: [
-        { provide: MatDialogRef, useValue: dialogRefMock },
-        { provide: MAT_DIALOG_DATA, useValue: matDialogDataMock },
-        { provide: LogicAppService, useValue: logicAppServiceMock },
+        { provide: LogicAppService, useValue: logicAppSpy },
+        { provide: Router, useValue: routerSpyObj },
         {
           provide: ActivatedRoute,
           useValue: {
+            paramMap: of(new Map<string, string>()),
             snapshot: {
               paramMap: {
-                get: (key: string) => 'mockedParam' 
-              }
+                get: () => 'mockValue',
+              },
             },
-            queryParamMap: of({}) 
-          }
+          },
         },
-        DecimalPipe,
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-    .compileComponents();
-    
+    }).compileComponents();
+
+    logicAppServiceSpy = TestBed.inject(
+      LogicAppService
+    ) as jasmine.SpyObj<LogicAppService>;
+    routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+  });
+
+  beforeEach(() => {
+    logicAppServiceSpy.getCustomerFromLocalStorage.and.returnValue(
+      mockCustomer
+    );
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -57,5 +98,13 @@ describe('LayoutComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call logout and navigate to login', () => {
+    logicAppServiceSpy.logout.and.stub();
+
+    component.logout();
+
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   });
 });

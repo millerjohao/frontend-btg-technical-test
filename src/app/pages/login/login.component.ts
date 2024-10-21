@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AngularMaterialModule } from '../../shared/modules/angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
 import {
@@ -28,14 +28,15 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   logicAppService = inject(LogicAppService);
   router = inject(Router);
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
   errorMessage?: string;
   loading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {}
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(1)]],
