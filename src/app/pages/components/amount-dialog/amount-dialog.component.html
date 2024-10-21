@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Afiliación a Fondo</h2>
+<mat-dialog-content>
+    <p>¿Cuánto desea afiliar al fondo {{ data.fund.name }}?</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Monto</mat-label>
+        <input
+        matInput
+        type="text"
+        [value]="amount | number:'1.0-0'"
+        (input)="formatAmount($event)"
+        [min]="data.fund.minAmount"
+        required
+      />
+        <mat-hint>El monto mínimo es {{ data.fund.minAmount | currency:'COP' }}</mat-hint>
+    </mat-form-field>
+</mat-dialog-content>
+<span *ngIf="error" class="error-message">{{ error }}</span>
+<mat-dialog-actions>
+    <button mat-icon-button color="primary" (click)="confirmSubscription()">
+        <mat-icon>check</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-actions>

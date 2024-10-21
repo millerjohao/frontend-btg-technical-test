@@ -25,10 +25,10 @@
           <div class="user-info">
             <div class="user-balance">
               <span class="balance-label">Saldo disponible</span>
-              <span class="balance-amount">{{currentCustomer?.balance | currency:'COP'}}</span>
+              <span class="balance-amount">{{currentAmount | currency:'COP'}}</span>
             </div>
             <mat-menu #appMenu="matMenu">
-              <button mat-menu-item>Cerrar sesión</button>
+              <button mat-menu-item (click)="logout()">Cerrar sesión</button>
             </mat-menu>
             <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="User Menu">
               <mat-icon>account_circle</mat-icon>

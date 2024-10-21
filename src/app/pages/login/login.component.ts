@@ -5,7 +5,6 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -42,8 +41,6 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.loginForm.valid) {

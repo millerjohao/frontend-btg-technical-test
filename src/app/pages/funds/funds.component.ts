@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LogicAppService } from '../../services/logic-app.service';
 import { AngularMaterialModule } from '../../shared/modules/angular-material/angular-material.module';
 import { ICustomer } from '../core/interfaces/customer-model.interface';
+import { AmountDialogComponent } from '../components/amount-dialog/amount-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-funds',
@@ -21,14 +23,21 @@ import { ICustomer } from '../core/interfaces/customer-model.interface';
 })
 export class FundsComponent implements OnInit {
   logicAppService = inject(LogicAppService);
+  router = inject(Router);
   allFunds: any[] = [];
   availableFunds: any[] = [];
   subscribedFunds: any[] = [];
-  currentCustomer?: ICustomer;
+  currentCustomer: ICustomer;
+  selectedFund: any;
+  amount?: number;
+  dialogRef = inject(MatDialog);
+
+  constructor() {
+    this.currentCustomer = this.logicAppService.getCustomerFromLocalStorage();
+  }
 
   ngOnInit(): void {
     this.loadFunds();
-    this.currentCustomer = this.logicAppService.getCustomerFromLocalStorage();
   }
 
   loadFunds(): void {
@@ -47,7 +56,39 @@ export class FundsComponent implements OnInit {
     });
   }
 
-  subscribeToFund(fund: any): void {}
+  cancelAfiliation(fund: any): void {
+    this.logicAppService
+      .cancelAfiliation(this.currentCustomer.id, fund.id)
+      .subscribe(() => {
+        this.loadFunds();
+        this.logicAppService
+          .login(String(this.currentCustomer.id))
+          .subscribe(() => {
+            this.refresh();
+          });
+      });
+  }
 
-  unsubscribeFromFund(fund: any): void {}
+  openAmountDialog(fund: any): void {
+    this.selectedFund = fund;
+    this.amount = fund.minAmount;
+    const dialog = this.dialogRef.open(AmountDialogComponent, {
+      data: { fund: this.selectedFund },
+    });
+
+    dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadFunds();
+        this.logicAppService
+          .login(String(this.currentCustomer.id))
+          .subscribe(() => {
+            this.refresh();
+          });
+      }
+    });
+  }
+
+  refresh() {
+    location.reload();
+  }
 }

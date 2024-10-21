@@ -1,0 +1,55 @@
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+mat-icon-button {
+  font-size: 24px;
+  padding: 8px;
+}
+
+mat-icon {
+  font-size: 20px;
+}
+
+mat-icon-button:hover {
+  background-color: transparent;
+  color: #00796b;
+}
+
+button:hover {
+  background-color: #357abd;
+  color: white;
+}
+
+button[color="warn"] {
+  background-color: #f44336;
+  color: white;
+}
+
+button[color="warn"]:hover {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.error-message {
+    display: block;
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+    animation: fadeInOut 3s ease-out;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
