@@ -1,0 +1,42 @@
+<app-loader *ngIf="loading"></app-loader>
+<div class="login-container">
+    <mat-card>
+        <mat-card-header>
+            <div class="header-content">
+                <img src="assets/icons/btg.png" alt="Logo" width="100" height="100">
+                <mat-card-title>Inicio de sesión</mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput formControlName="email" />
+                    <mat-error *ngIf="loginForm.controls['email']?.hasError('required')">
+                        El correo es obligatorio.
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.controls['email']?.hasError('minlength')">
+                        Ingrese un correo válido.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput type="password" formControlName="password" autocomplete="off" autocorrect="off"
+                        autocapitalize="off" />
+                    <mat-error *ngIf="loginForm.controls['password']?.hasError('required')">
+                        La contraseña es obligatoria.
+                    </mat-error>
+                </mat-form-field>
+
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                    Ingresar
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
