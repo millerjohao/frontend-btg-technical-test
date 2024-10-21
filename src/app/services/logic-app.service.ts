@@ -1,8 +1,7 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { ICustomer } from '../pages/core/interfaces/customer-model.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -64,5 +63,9 @@ export class LogicAppService {
       `${this.apiUrl}/transactions/cancel-subscription?customerId=${customerId}&fundId=${fundId}`,
       null
     );
+  }
+
+  getTransactions(customerId: any): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/transactions/${customerId}`);
   }
 }

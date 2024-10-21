@@ -1,0 +1,56 @@
+.transaction-history {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.transaction-card {
+  width: 80%;
+  max-width: 1000px;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+}
+
+.mat-column-transactionType {
+  text-align: center;
+}
+
+.mat-column-amount {
+  text-align: right;
+}
+
+.mat-column-transactionDate {
+  text-align: center;
+}
+
+mat-chip {
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  border-radius: 15px;
+}
+
+.open-chip {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-chip {
+  background-color: #f44336;
+  color: white;
+}
+
+button {
+  width: 100%;
+}
+
+.mat-column-amount,
+.mat-column-transactionDate {
+  font-size: 0.9rem;
+}

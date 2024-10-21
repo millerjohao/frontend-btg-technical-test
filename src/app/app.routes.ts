@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-fo
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { FundsComponent } from './pages/funds/funds.component';
+import { HistoryComponent } from './pages/history/history.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
       { path: 'home', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'funds', component: FundsComponent },      
+      { path: 'history', component: HistoryComponent },      
     ],
   },
 

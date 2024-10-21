@@ -1,0 +1,48 @@
+<div class="transaction-history">
+    <mat-card class="transaction-card">
+        <mat-card-header>
+            <mat-card-title>Historial de Transacciones</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <table mat-table [dataSource]="transactionsList" class="mat-elevation-z8">
+                <ng-container matColumnDef="transactionType">
+                    <th mat-header-cell *matHeaderCellDef> Tipo de Transacción </th>
+                    <td mat-cell *matCellDef="let transaction">
+                        <mat-chip [ngClass]="{
+                      'open-chip': transaction.transactionType === 'APERTURA',
+                      'cancel-chip': transaction.transactionType === 'CANCELACION'
+                    }">
+                            {{ transaction.transactionType }}
+                        </mat-chip>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fundName">
+                    <th mat-header-cell *matHeaderCellDef> Fondo </th>
+                    <td mat-cell *matCellDef="let transaction">{{ transaction.fund.name }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Monto </th>
+                    <td mat-cell *matCellDef="let transaction">
+                        {{ transaction.amount | currency:'COP' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="transactionDate">
+                    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                    <td mat-cell *matCellDef="let transaction">
+                        {{ transaction.transactionDate | date:'dd/MM/yyyy' }}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <!-- Paginador -->
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

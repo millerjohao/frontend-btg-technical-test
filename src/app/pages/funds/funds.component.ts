@@ -47,7 +47,13 @@ export class FundsComponent implements OnInit {
       this.logicAppService
         .getCustomerFunds(this.currentCustomer?.id)
         .subscribe((customerFunds: any[]) => {
-          this.subscribedFunds = customerFunds;
+          this.subscribedFunds = customerFunds.map((sub) => ({
+            id: sub.fund.id,
+            name: sub.fund.name,
+            category: sub.fund.category,
+            minAmount: sub.fund.minAmount,
+            amount: sub.amount,
+          }));
 
           this.availableFunds = this.allFunds.filter(
             (fund) => !this.subscribedFunds.some((sub) => sub.id === fund.id)

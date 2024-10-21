@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const materialComponents = [
   MatButtonModule,
@@ -57,6 +58,7 @@ const materialComponents = [
   MatSidenavModule,
   MatListModule,
   MatToolbarModule,
+  MatBadgeModule
 ];
 @NgModule({
   imports: [],
