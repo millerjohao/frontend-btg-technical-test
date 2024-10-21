@@ -1,13 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { AngularMaterialModule } from '../../shared/modules/angular-material/angular-material.module';
+import { Component, inject } from '@angular/core';
 import { LogicAppService } from '../../services/logic-app.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ICustomer } from '../core/interfaces/customer-model.interface';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { AngularMaterialModule } from '../../shared/modules/angular-material/angular-material.module';
+import { ICustomer } from '../core/interfaces/customer-model.interface';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-profile',
   standalone: true,
   imports: [
     CommonModule,
@@ -16,10 +16,10 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
   providers: [LogicAppService],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss',
 })
-export class DashboardComponent implements OnInit {
+export class ProfileComponent {
   logicAppService = inject(LogicAppService);
   currentCustomer?: ICustomer;
 

@@ -26,11 +26,14 @@
   }
 
   .nav-icon {
-    margin-right: 15px;
+    margin-right: 10px;
+    font-size: 20px;
+    vertical-align: middle;
   }
 
   .nav-text {
     font-weight: 500;
+    line-height: 1;
   }
 }
 
@@ -51,7 +54,7 @@
 
 .toolbar-left {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
 .toolbar-title {

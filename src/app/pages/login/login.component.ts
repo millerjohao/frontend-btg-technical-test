@@ -51,7 +51,7 @@ export class LoginComponent {
       const { password } = this.loginForm.value;
       this.logicAppService.login(password).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/home']);
         },
         error: () => {
           this.errorMessage = 'Credenciales inválidas';

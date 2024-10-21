@@ -1,0 +1,77 @@
+.funds-container {
+  padding: 20px;
+}
+
+.funds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.fund-card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-card {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+mat-card-title {
+  font-weight: bold;
+  font-size: 16px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  display: block;
+  width: 100%;
+  line-height: 1.2em;
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: #757575;
+}
+
+mat-card-content {
+  font-size: 16px;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+button {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #357abd;
+  color: white;
+}
+
+button[color="warn"] {
+  background-color: #f44336;
+  color: white;
+}
+
+button[color="warn"]:hover {
+  background-color: #d32f2f;
+  color: white;
+}

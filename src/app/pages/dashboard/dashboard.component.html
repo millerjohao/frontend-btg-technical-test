@@ -1,29 +1,9 @@
-<div class="dashboard-container">
-    <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav #sidenav mode="side" opened class="sidenav">
-            <mat-nav-list>
-                <a mat-list-item routerLink="/home">Inicio</a>
-                <a mat-list-item routerLink="/profile">Perfil</a>
-                <a mat-list-item routerLink="/settings">Configuración</a>
-            </mat-nav-list>
-        </mat-sidenav>
-
-        <mat-sidenav-content class="content">
-            <mat-toolbar color="primary" class="top-bar">
-                <div class="user-info">                  
-                    <mat-menu #appMenu="matMenu">
-                        <button mat-menu-item>Cerrar sesión</button>
-                    </mat-menu>
-                    <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="User Menu">
-                        <mat-icon>account_circle</mat-icon>
-                    </button>
-                </div>
-            </mat-toolbar>
-
-            <div class="main-content">
-                <h1>Bienvenido al Dashboard</h1>
-                
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+<div class="main-content">
+    <h1>¡Bienvenido {{currentCustomer?.name}}!</h1>
+    <p class="description">
+        En nuestra plataforma, te ofrecemos una manera inteligente y eficiente de gestionar tus inversiones.
+        Aquí puedes obtener rendimientos óptimos que se ajustan a tus objetivos financieros, ya sea para cumplir
+        tus metas de ahorro o para asegurar tu pensión obligatoria.
+    </p>
+    <router-outlet></router-outlet>
 </div>

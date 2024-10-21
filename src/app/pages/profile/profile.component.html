@@ -1,0 +1,11 @@
+<div class="profile-container">
+    <div class="profile-card">
+        <h2 class="profile-title">Perfil de {{ currentCustomer?.name }}</h2>
+        <div class="profile-info">
+            <p><strong>Email:</strong> {{ currentCustomer?.email }}</p>
+            <p><strong>Teléfono:</strong> +57 {{ currentCustomer?.phone }}</p>
+            <p><strong>Saldo Disponible:</strong> {{ currentCustomer?.balance | currency:'COP' }}</p>
+            <p><strong>Medio de notificación</strong> {{ currentCustomer?.notificationType}}</p>
+        </div>
+    </div>
+</div>
