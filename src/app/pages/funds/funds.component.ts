@@ -31,6 +31,7 @@ export class FundsComponent implements OnInit {
   selectedFund: any;
   amount?: number;
   dialogRef = inject(MatDialog);
+  loading = false;
 
   constructor() {
     this.currentCustomer = this.logicAppService.getCustomerFromLocalStorage();

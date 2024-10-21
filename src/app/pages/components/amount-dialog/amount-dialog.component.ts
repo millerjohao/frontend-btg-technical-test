@@ -5,11 +5,12 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LogicAppService } from '../../../services/logic-app.service';
 import { ICustomer } from '../../core/interfaces/customer-model.interface';
+import { LoaderComponent } from '../../loader/loader.component';
 
 @Component({
   selector: 'app-amount-dialog',
   standalone: true,
-  imports: [CommonModule, FormsModule, AngularMaterialModule],
+  imports: [CommonModule, FormsModule, AngularMaterialModule, LoaderComponent],
   providers: [LogicAppService, DecimalPipe],
   templateUrl: './amount-dialog.component.html',
   styleUrl: './amount-dialog.component.scss',
@@ -19,6 +20,7 @@ export class AmountDialogComponent {
   logicAppService = inject(LogicAppService);
   currentCustomer?: ICustomer;
   error?: string;
+  loading = false;
 
   constructor(
     private decimalPipe: DecimalPipe,
@@ -43,12 +45,15 @@ export class AmountDialogComponent {
         idFund: this.data.fund.id,
         amount: this.amount,
       };
+      this.loading = true;
       this.logicAppService.createAfiliation(requestBody).subscribe({
         next: () => {
           this.dialogRef.close(true);
+          this.loading = false;
         },
         error: (err) => {
           this.showError(err.error.message);
+          this.loading = false;
         },
       });
     } else {
